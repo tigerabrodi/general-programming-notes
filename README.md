@@ -114,3 +114,95 @@
 
 - Use OpenAPI (formerly Swagger) for documenting your API.
 - It helps in defining, visualizing, and creating interactive documentation.
+
+# Data Structures we use every day
+
+1. **Lists**:
+
+   - Useful for storing ordered data.
+   - Applied in task management apps (organizing tasks), social media feeds (displaying posts in order), and shopping carts.
+
+2. **Arrays**:
+
+   - Fixed-size, ordered collections.
+   - Ideal for mathematical operations, storing data sets, and image processing (storing pixel data).
+
+3. **Stacks** (Last-In-First-Out principle):
+
+   - Suitable for undo/redo operations in text editors and browsing history in web browsers.
+
+4. **Queues** (First-In-First-Out principle):
+
+   - Manage printer jobs, user actions in games, or message handling in chat applications.
+
+5. **Heaps**:
+
+   - Used in task scheduling and memory management.
+   - Implement priority queues for efficient access to the highest or lowest priority item.
+
+6. **Trees**:
+
+   - Represent data hierarchically.
+   - Used in database indexing, AI decision-making, and file systems.
+   - Example: Decision trees in machine learning for classification.
+
+7. **Hash Tables**:
+
+   - Enable efficient data lookup, insertion, and deletion.
+   - Utilized in search engines, caching systems, and compilers/interpreters for symbol table management.
+
+8. **Suffix Trees**:
+
+   - Specialized for searching strings in documents.
+   - Applied in text editors and search algorithms.
+
+9. **Graphs**:
+
+   - Track relationships or paths.
+   - Used in social networks, recommendation engines, and pathfinding algorithms.
+
+10. **R-trees**:
+
+- Efficient for finding nearest neighbors.
+- Crucial in mapping apps and geolocation services.
+
+# Top 7 Ways to 10x Your API Performance
+
+1. **Caching**:
+
+   - Caches store results of expensive computations for quick retrieval.
+   - Use Redis or Memcached to cache API responses, reducing database queries.
+   - Even short-term caching can significantly boost performance.
+
+2. **Connection Pooling**:
+
+   - Maintains a pool of open database connections instead of opening new ones for each request.
+   - Reduces the overhead of connection setups.
+   - For serverless architectures, use services like AWS RDS Proxy or Azure SQL Database serverless for efficient connection management.
+
+3. **Avoid N+1 Query Problems**:
+
+   - Fetch related data efficiently to prevent multiple database queries.
+   - For example, fetch all comments for a set of blog posts in one or two queries rather than individual queries for each post.
+
+4. **Pagination**:
+
+   - Breaks large data responses into smaller, manageable pages.
+   - Reduces data transfer load and speeds up response times.
+   - Implement using `limit` and `offset` parameters in your API.
+
+5. **Lightweight JSON Serializers**:
+
+   - Use fast serialization libraries to minimize the time spent converting data to JSON.
+   - Efficient serialization can noticeably improve response times.
+
+6. **Compression**:
+
+   - Compress API responses to reduce data transfer size.
+   - Modern algorithms like Brotli offer better compression ratios.
+   - CDNs like Cloudflare can handle compression, offloading the task from your server.
+
+7. **Asynchronous Logging**:
+   - In high-throughput systems, logging can add latency.
+   - Use asynchronous logging to quickly place log entries into an in-memory buffer, while a separate thread handles the writing to files or logging services.
+   - Be aware of the potential for losing some logs in case of a crash.
