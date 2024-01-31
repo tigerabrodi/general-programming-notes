@@ -296,3 +296,51 @@
    - Distributes data across multiple nodes to improve performance and scalability.
    - Example: MongoDB and Cassandra for handling large data volumes.
    - Enhances data locality and reduces network latency.
+
+# How Discord Stores TRILLIONS of Messages
+
+### Context and Challenge
+
+- **Background**: Discord was using Cassandra for messaging but faced performance issues and maintenance challenges.
+- **Task**: Migrate trillions of messages from Cassandra to ScyllaDB, a more efficient alternative.
+- **Key Concerns**: Ensuring reliability and performance during and after migration.
+
+### Strategy and Execution
+
+1. **Preliminary Testing**:
+
+   - Started with smaller databases to test and refine the migration process.
+   - Approach: Move fast with reversible mistakes, but be cautious with significant changes.
+
+2. **ScyllaDB Advantages**:
+
+   - Written in C++, promising better performance and faster repairs.
+   - Garbage collection-free, addressing a major pain point with Cassandra.
+
+3. **Intermediate Data Services Layer**:
+
+   - Written in Rust for safety and performance.
+   - Implemented request coalescing to reduce database load and handle concurrent requests efficiently.
+
+4. **Innovative 'Super-Disk' Solution**:
+
+   - Created a custom disk solution combining Local SSDs (for low latency) and Persistent Disks (for durability) on Google Cloud.
+   - Two-layered RAID setup: RAID0 for combining SSDs and RAID1 for mirroring with Persistent Disk.
+   - Custom kernel configuration for optimized read and write operations.
+
+5. **Migrating the 'Cassandra-Messages' Cluster**:
+   - Used a custom-written data migrator in Rust.
+   - Accomplished in nine days with no downtime.
+   - Resulted in reduced node count and improved latencies.
+
+### Outcomes and Benefits
+
+- **Efficiency**: Reduced the number of database nodes significantly.
+- **Performance**: Achieved better latencies and system reliability.
+- **Operational Improvement**: Eased the load on the on-call team, improving overall quality of life.
+
+### Lessons and Takeaways
+
+- **Innovative Problem-Solving**: Discord's approach to redefining the problem and building a tailored solution (like the Super-Disk) is exemplary.
+- **Risk Management**: Their phased and cautious approach to migration minimized potential risks.
+- **Engineering Culture**: Reflects Discord's dynamic and innovative engineering ethos.
