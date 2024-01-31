@@ -37,3 +37,23 @@
    - **Potential for Overloading**: Clients can potentially make queries that are too demanding on the server, like causing a full table scan in a database, which can be risky.
 
 6. **Should You Use GraphQL?**: It's all about trade-offs. GraphQL offers flexibility and efficiency, ideal for complex applications with diverse data needs. However, it requires more setup and careful management, especially for caching and preventing server overloads.
+
+# Noisy Neighbors
+
+1. **The Noisy Neighbor Problem**: Imagine your application is a shared apartment building. If one tenant (User A) is too loud or uses up most of the resources (like water or electricity), it affects the other tenants (User B). In your application, when User A makes a lot of requests, they consume most of the available resources (like CPU, memory), causing User B’s requests to fail due to resource shortage.
+
+2. **Multi-Tenant Environment**: Your application is like a building with multiple tenants (users). In cloud computing, this is common where many users (tenants) share the same hardware resources.
+
+3. **Identifying the Problem**: You notice spikes in resource usage by Tenant A, and as a result, Tenant B experiences errors. This is typical in a shared environment where one user's high demand impacts others.
+
+4. **Solutions to the Problem**:
+
+   - **Auto-Scaling**: This is like adding more resources (like extra water tanks or generators) when demand spikes. It automatically increases capacity to handle the load but has a delay (the trigger window).
+   - **Throttling**: It’s like setting limits on how much water or electricity each tenant can use. If a tenant exceeds this limit, their resource use is restricted.
+   - **Retry Mechanisms in Clients**: This is like advising tenants to try using resources again if they initially face a shortage.
+   - **Load Leveling with a Queue**: Requests are lined up and processed in order, preventing overload.
+   - **Restricting Operations**: In high-demand situations, limit resource-intensive activities (like searching in the app).
+   - **Quality of Service Classes in Kubernetes**: Assigning different priority levels to processes. High-priority processes are less likely to be stopped when resources are scarce.
+   - **Background Operations**: Schedule less critical operations for off-peak times to free up resources during high-demand periods.
+
+5. **Final Thoughts**: The key to managing the Noisy Neighbor problem is to balance resource allocation so that all users have fair access. This involves a combination of scaling, managing demand, and prioritizing resources.
