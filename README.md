@@ -57,3 +57,60 @@
    - **Background Operations**: Schedule less critical operations for off-peak times to free up resources during high-demand periods.
 
 5. **Final Thoughts**: The key to managing the Noisy Neighbor problem is to balance resource allocation so that all users have fair access. This involves a combination of scaling, managing demand, and prioritizing resources.
+
+# Deep Dive into REST API
+
+1. **Naming Conventions**:
+
+   - Use **nouns** for endpoints, not verbs (e.g., `items`, not `createItems`).
+   - Leverage logical groupings; if an object contains another, reflect this in the endpoint (e.g., `/customers/{id}/orders`).
+   - Avoid exposing database structures in your API paths.
+   - Use **plural nouns** for collections (e.g., `orders`) and singular for individual resources (e.g., `orders/99`).
+
+2. **URL Structure**:
+
+   - Keep URLs simple and avoid deeply nested structures.
+   - Use hyphens (`-`) to improve readability.
+   - **Version your API** to manage changes without breaking existing clients.
+
+3. **Hypermedia as the Engine of Application State (HATEOAS)**:
+
+   - Include navigable links in responses to guide clients through your API.
+   - HATEOAS allows clients to discover resources dynamically.
+
+4. **Filtering, Pagination, and Sorting**:
+
+   - Implement filtering through query parameters.
+   - Use pagination to manage large datasets and limit response sizes.
+   - Allow sorting by fields via query parameters.
+
+5. **Idempotency**:
+
+   - Ensure operations like `DELETE` are idempotent; repeating them has the same effect.
+   - Use HTTP status codes appropriately to reflect different outcomes of idempotent operations.
+
+6. **Asynchronous Operations**:
+
+   - For long-running operations, consider asynchronous processing.
+   - Return a `202 Accepted` status and provide a way for clients to check operation status.
+
+7. **Support for Partial Responses**:
+
+   - Implement the `Accept-Ranges` header for large resources.
+   - Use HTTP `HEAD` requests to fetch metadata without the full resource.
+
+8. **Error Handling**:
+
+   - Provide clear error messages and appropriate HTTP status codes.
+   - Ensure error messages are informative for developers but don’t expose sensitive information.
+
+9. **Security**:
+
+   - Enforce SSL/TLS encryption.
+   - Implement proper authentication and authorization.
+   - Use Access Control Lists (ACLs) and rate limiting to enhance security.
+
+10. **Documentation with OpenAPI/Swagger**:
+
+- Use OpenAPI (formerly Swagger) for documenting your API.
+- It helps in defining, visualizing, and creating interactive documentation.
