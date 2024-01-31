@@ -206,3 +206,93 @@
    - In high-throughput systems, logging can add latency.
    - Use asynchronous logging to quickly place log entries into an in-memory buffer, while a separate thread handles the writing to files or logging services.
    - Be aware of the potential for losing some logs in case of a crash.
+
+# Data structures that power our databases
+
+1. **Skip List**:
+
+   - A probabilistic data structure for implementing sorted maps or sets.
+   - Used in in-memory databases like Redis for Sorted Sets and Sorted Lists.
+   - Facilitates efficient search, insertion, and deletion.
+
+2. **Hash Index (Hash Table)**:
+
+   - Maps keys to values using a hash function.
+   - Key for fast lookups, insertions, and deletions.
+   - Common in various databases, including Redis and internal mechanisms of many databases.
+
+3. **SSTable (Sorted Strings Table)**:
+
+   - Stores data on disk in sorted order.
+   - File-based, used for large data storage in a compressed, efficient format.
+   - Integral to LSM Tree architecture.
+
+4. **LSM Tree (Log-Structured Merge-Tree)**:
+
+   - Combines MemTable (in-memory) and SSTables (on-disk) for handling high volumes of writes.
+   - Backbone of NoSQL databases like Apache Cassandra, RocksDB, and LevelDB.
+
+5. **B-Tree and B+Tree**:
+
+   - Balanced tree structures for efficient on-disk data storage and retrieval.
+   - B+Tree stores all data in leaf nodes with internal nodes holding keys.
+   - Used in databases like MySQL, Postgres, and Oracle.
+
+6. **Inverted Index**:
+
+   - Efficient for searching and retrieving data from large text document collections.
+   - Maps words to documents, inverted from the usual document-to-word mapping.
+   - Utilized in search engines like ElasticSearch.
+
+7. **Suffix Tree**:
+
+   - Used for efficient text searching in databases.
+   - Quickly locates all occurrences of a search term within large document collections.
+
+8. **R-Tree**:
+   - Spatial index structure organizing data by geometric boundaries.
+   - Facilitates fast spatial queries.
+   - Employed in spatial databases like PostGIS, MongoDB, and Elasticsearch.
+
+# Distributed Systems Patterns
+
+1. **Ambassador Pattern**:
+
+   - Acts as an intermediary, handling tasks like logging, monitoring, and retries for an application.
+   - Example: Kubernetes using Envoy as an ambassador to simplify service communication.
+   - Benefits include reduced latency and enhanced security.
+
+2. **Circuit Breaker Pattern**:
+
+   - Prevents cascading failures by stopping requests to a failing service, allowing it to recover.
+   - Example: Netflix’s Hystrix library.
+   - Useful in microservices or cloud-based applications for resilience.
+
+3. **CQRS (Command Query Responsibility Segregation)**:
+
+   - Separates read (query) and write (command) operations for independent scaling and optimization.
+   - Example: E-commerce platforms with high read requests but fewer write operations.
+   - Valuable in systems with different performance characteristics for read and write operations.
+
+4. **Event Sourcing**:
+
+   - Stores changes as a sequence of events, providing a complete history for auditing and debugging.
+   - Example: Git version control system.
+   - Enables features like time-travel debugging and event replay for analytics.
+
+5. **Leader Election**:
+
+   - Ensures only one node is responsible for a specific task or resource in a distributed system.
+   - Example: ZooKeeper and etcd for managing distributed configurations.
+   - Avoids conflicts and ensures consistent decision-making.
+
+6. **PubSub (Publisher/Subscriber) Pattern**:
+
+   - Publishers emit events without knowing subscribers, who listen for events they’re interested in.
+   - Example: Google Cloud Pub/Sub for asynchronous messaging between services.
+   - Ideal for updating multiple components or propagating changes.
+
+7. **Sharding**:
+   - Distributes data across multiple nodes to improve performance and scalability.
+   - Example: MongoDB and Cassandra for handling large data volumes.
+   - Enhances data locality and reduces network latency.
